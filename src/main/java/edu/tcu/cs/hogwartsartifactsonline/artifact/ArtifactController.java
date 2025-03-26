@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/api/v1/artifacts")
 public class ArtifactController {
 
     private final ArtifactService artifactService;
@@ -26,14 +27,14 @@ public class ArtifactController {
         this.artifactDtoToArtifactConverter = artifactDtoToArtifactConverter;
     }
 
-    @GetMapping("/ap/v1/artifacts/{artifactId}")
+    @GetMapping("/{artifactId}")
     public Result findArtifactBYId(@PathVariable String artifactId){
     Artifact foundArtifact = this.artifactService.findById(artifactId);
     ArtifactDto artifactDto = this.artifactToArtifactDtoConverter.convert(foundArtifact);
     return new Result(true, StatusCode.SUCCESS, "Find One Success", artifactDto);
 }
 
-    @GetMapping("/api/v1/artifacts")
+    @GetMapping
     public Result findAllArtifacts() {
         List<Artifact> foundArtifacts = this.artifactService.findAll();
 
@@ -46,8 +47,8 @@ public class ArtifactController {
 
 
     }
-    //@PostMapping("/api/v1/artifacts")
     @PostMapping
+   // @PostMapping
     public Result addArtifact(@Valid @RequestBody ArtifactDto artifactDto) {
         //convert artifactdto to artifact
 
@@ -58,7 +59,7 @@ public class ArtifactController {
     }
 
 
-    @PutMapping("/api/v1/artifacts/{artifactId}")
+    @PutMapping("/{artifactId}")
     public Result updateArtifact(@PathVariable String artifactId, @Valid @RequestBody ArtifactDto artifactDto) {
         Artifact update = this.artifactDtoToArtifactConverter.convert(artifactDto);
         Artifact updatedArtifact  = this.artifactService.update(artifactId, update);
@@ -66,7 +67,7 @@ public class ArtifactController {
         return new Result(true, StatusCode.SUCCESS, "Update Success", updatedArtifactDto);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{artifactId}")
     public Result deleteArtifact(@PathVariable String artifactId) {
         this.artifactService.delete(artifactId);
         return new Result(true, StatusCode.SUCCESS, "Delete Success");

@@ -6,7 +6,7 @@ import edu.tcu.cs.hogwartsartifactsonline.wizard.WizardRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 @Component
-public class DBDInitializer {
+public class DBDInitializer implements CommandLineRunner {
     private final ArtifactRepository artifactRepository;
 
     private final WizardRepository wizardRepository;
