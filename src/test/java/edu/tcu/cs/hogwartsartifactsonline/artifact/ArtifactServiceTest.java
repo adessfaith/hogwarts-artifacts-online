@@ -126,7 +126,7 @@ class ArtifactServiceTest {
         //THEN
 
         assertThat(actualArtifacts.size()).isEqualTo(this.artifacts.size());
-        verify(artifactRepository, times(1).findAll());
+        verify(artifactRepository, times(1)).findAll();
     }
 
     @Test
@@ -137,7 +137,7 @@ class ArtifactServiceTest {
         newArtifact.setImageUrl("ImageUrl...");
         newArtifact.setDescription("Description...");
 
-        given(idWorker.nextId()).willReturn(123456);
+        given(idWorker.nextId()).willReturn(123456L);
         given(artifactRepository.save(newArtifact)).willReturn(newArtifact);
 
 
@@ -187,19 +187,20 @@ class ArtifactServiceTest {
 
     @Test
     void testUpdateNotFound() {
-        //Given
+        // Given
         Artifact update = new Artifact();
         update.setName("Invisibility Cloak");
-        update.setDescription("A new description");
-        update.setImageUrl("imageUrl");
+        update.setDescription("A new description.");
+        update.setImageUrl("ImageUrl");
 
-        given(artifactRepository.findById("123456")).willReturn(Optional.empty());
-        //When
+        given(artifactRepository.findById("1250808601744904192")).willReturn(Optional.empty());
 
+        // When
         assertThrows(ArtifactNotFoundException.class, () -> {
             artifactService.update("1250808601744904192", update);
         });
-        //Then
+
+        // Then
         verify(artifactRepository, times(1)).findById("1250808601744904192");
     }
 
