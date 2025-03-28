@@ -87,6 +87,8 @@ class ArtifactControllerTest {
         a6.setDescription("The Resurrection Stone allows the holder to bring back deceased loved ones, in a semi-physical form, and communicate with them.");
         a6.setImageUrl("ImageUrl");
         this.artifacts.add(a6);
+
+
     }
 
     @AfterEach
@@ -94,7 +96,7 @@ class ArtifactControllerTest {
     }
 
     @Test
-    void tesFindArtifactByIdSuccess() throws Exception {
+    void testFindArtifactByIdSuccess() throws Exception {
         // Given
         given(this.artifactService.findById("1250808601744904191")).willReturn(this.artifacts.get(0));
 
@@ -108,7 +110,7 @@ class ArtifactControllerTest {
     }
 
     @Test
-    void tesFindArtifactByIdNotFound() throws Exception {
+    void testFindArtifactByIdNotFound() throws Exception {
         // Given
         given(this.artifactService.findById("1250808601744904191")).willThrow(new ArtifactNotFoundException("1250808601744904191"));
 

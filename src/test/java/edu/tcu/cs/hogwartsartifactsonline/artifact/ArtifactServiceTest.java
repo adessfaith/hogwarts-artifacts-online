@@ -94,7 +94,7 @@ class ArtifactServiceTest {
     }
 
     @Test
-    void testFIndByIDNotFound() {
+    void testFindByIdNotFound() {
         //Given
         // Given
         given(artifactRepository.findById(Mockito.any(String.class))).willReturn(Optional.empty());
@@ -164,7 +164,7 @@ class ArtifactServiceTest {
 
         Artifact update = new Artifact();
 
-        update.setId("1250808601744904192");
+        //update.setId("1250808601744904192");
         update.setName("Invisibility Cloak");
         update.setDescription("A new descriptiondescription");
         update.setImageUrl("imageUrl");
@@ -224,8 +224,7 @@ class ArtifactServiceTest {
     }
 
     @Test
-    void testDeleteNotFound(){
-        // Given
+    void testDeleteNotFound(){// Given
         given(artifactRepository.findById("1250808601744904192")).willReturn(Optional.empty());
 
         // When

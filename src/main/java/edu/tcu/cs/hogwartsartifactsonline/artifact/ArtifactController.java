@@ -7,7 +7,7 @@ import edu.tcu.cs.hogwartsartifactsonline.artifact.dto.ArtifactDto;
 import edu.tcu.cs.hogwartsartifactsonline.system.StatusCode;
 import jakarta.validation.Valid;
 
-import org.springframework.http.MediaType;
+
 import org.springframework.web.bind.annotation.*;
 import edu.tcu.cs.hogwartsartifactsonline.system.Result;
 
@@ -28,7 +28,7 @@ public class ArtifactController {
     }
 
     @GetMapping("/{artifactId}")
-    public Result findArtifactBYId(@PathVariable String artifactId){
+    public Result findArtifactById(@PathVariable String artifactId){
     Artifact foundArtifact = this.artifactService.findById(artifactId);
     ArtifactDto artifactDto = this.artifactToArtifactDtoConverter.convert(foundArtifact);
     return new Result(true, StatusCode.SUCCESS, "Find One Success", artifactDto);
