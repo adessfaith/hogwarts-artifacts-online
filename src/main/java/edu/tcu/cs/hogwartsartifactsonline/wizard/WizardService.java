@@ -1,7 +1,7 @@
 package edu.tcu.cs.hogwartsartifactsonline.wizard;
 
 import edu.tcu.cs.hogwartsartifactsonline.artifact.ArtifactRepository;
-import edu.tcu.cs.hogwartsartifactsonline.artifact.utils.IdWorker;
+import edu.tcu.cs.hogwartsartifactsonline.system.exception.ObjectNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ public class WizardService {
         return wizardRepository.findAll();
     }
     public Wizard findById(Integer wizardId){
-        return this.wizardRepository.findById(wizardId).orElseThrow(()->new WizardNotFoundException(wizardId));
+        return this.wizardRepository.findById(wizardId).orElseThrow(()->new ObjectNotFoundException("wizard", wizardId));
     }
     public Wizard save( Wizard newWizard){
         return this.wizardRepository.save(newWizard);
@@ -33,13 +33,15 @@ public class WizardService {
             oldWizard.setArtifacts(update.getArtifacts());
             Wizard updatedWizard = this.wizardRepository.save(oldWizard);
             return oldWizard;
-        }).orElseThrow(()->new WizardNotFoundException(wizardId));
+        }).orElseThrow(()->new ObjectNotFoundException("wizard", wizardId));
 
 
     }
 
     public void delete(Integer wizardId){
-        this.wizardRepository.findById(wizardId).orElseThrow(()->new WizardNotFoundException(wizardId));
+        Wizard wizardToBeDeleted = this.wizardRepository.findById(wizardId).orElseThrow(()->new ObjectNotFoundException("wizard", wizardId));
+        //before deletion, must unassign wizard's owned artifacts
+            wizardToBeDeleted.removeAllArtifacts();
         this.wizardRepository.deleteById(wizardId);
     }
 

@@ -1,9 +1,8 @@
 package edu.tcu.cs.hogwartsartifactsonline.wizard;
 
 
-import edu.tcu.cs.hogwartsartifactsonline.artifact.Artifact;
 import edu.tcu.cs.hogwartsartifactsonline.artifact.utils.IdWorker;
-import edu.tcu.cs.hogwartsartifactsonline.wizard.Wizard;
+import edu.tcu.cs.hogwartsartifactsonline.system.exception.ObjectNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +19,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
@@ -111,7 +109,7 @@ public class WizardServiceTest {
         Throwable thrown = catchThrowable(() -> { Wizard returnedWizard = wizardService.findById(9);});
 
         //THEN
-        assertThat(thrown).isInstanceOf(WizardNotFoundException.class).hasMessage("Could not find wizard with Id 9 :(");
+        assertThat(thrown).isInstanceOf(ObjectNotFoundException.class).hasMessage("Could not find wizard with Id 9 :(");
         verify(wizardRepository, times(1)).findById(Mockito.any(Integer.class));
 
     }
@@ -194,7 +192,7 @@ public class WizardServiceTest {
         given(wizardRepository.findById(9)).willReturn(Optional.empty());
 
         //When
-        assertThrows(WizardNotFoundException.class,()->{wizardService.update(9,update);});
+        assertThrows(ObjectNotFoundException.class,()->{wizardService.update(9,update);});
 
         //Then
         verify(wizardRepository, times(1)).findById(9);
@@ -226,7 +224,7 @@ public class WizardServiceTest {
         given(wizardRepository.findById(9)).willReturn(Optional.empty());
 
         //When
-        assertThrows(WizardNotFoundException.class,()->{wizardService.delete(9);});
+        assertThrows(ObjectNotFoundException.class,()->{wizardService.delete(9);});
 
 
         //Then
