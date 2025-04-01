@@ -127,7 +127,7 @@ void testFindUserByIdSuccess() throws Exception {
     void testAddUserSuccess() throws Exception{
         HogwartsUser user = new HogwartsUser();
         user.setId(4);
-        user.setUsername("lily");
+        user.setUsername("Lily");
         user.setPassword("123456");
         user.setEnabled(true);
         user.setRoles("admin user");//space delimiter
@@ -153,6 +153,21 @@ void testFindUserByIdSuccess() throws Exception {
     }
 
     @Test
+    void testFIndUserByIdNotFound() throws Exception{
+        //given
+
+        given(this.userService.findById(5)).willThrow(new ObjectNotFoundException("user", 5));
+
+        //when and then
+
+        this.mockMvc.perform(get(this.baseUrl + "/users/5").accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.flag").value(false))
+                .andExpect(jsonPath("$.code").value(StatusCode.NOT_FOUND))
+                .andExpect(jsonPath("$.message").value("Could not find user with Id 5 :("))
+                .andExpect(jsonPath("$.data").isEmpty());
+    }
+
+    @Test
     void testUpdateUserSuccess() throws Exception{
         UserDto userDto = new UserDto(3, "tom123", false, "user");
 
@@ -166,7 +181,7 @@ void testFindUserByIdSuccess() throws Exception {
         String json = this.objectMapper.writeValueAsString(userDto);
 
         //Given
-        given(this.userService.save(Mockito.any(HogwartsUser.class))).willReturn(updatedUser);
+        given(this.userService.update(eq(3),Mockito.any(HogwartsUser.class))).willReturn(updatedUser);
 
         //when and then
         this.mockMvc.perform(put(this.baseUrl + "/users/3").contentType(MediaType.APPLICATION_JSON).content(json).accept(MediaType.APPLICATION_JSON))
@@ -199,7 +214,7 @@ void testFindUserByIdSuccess() throws Exception {
                 .andExpect(jsonPath("$.flag").value(false))
                 .andExpect(jsonPath("$.code").value(StatusCode.NOT_FOUND))
                 .andExpect(jsonPath("$.message").value("Could not find user with Id 5 :("))
-                .andExpect(jsonPath("$.data.id").isEmpty());
+                .andExpect(jsonPath("$.data").isEmpty());
     }
 
     @Test
@@ -228,7 +243,7 @@ void testFindUserByIdSuccess() throws Exception {
                 .andExpect(jsonPath("$.flag").value(false))
                 .andExpect(jsonPath("$.code").value(StatusCode.NOT_FOUND))
                 .andExpect(jsonPath("$.message").value("Could not find user with Id 5 :("))
-                .andExpect(jsonPath("$.data.id").isEmpty());
+                .andExpect(jsonPath("$.data").isEmpty());
 
 
 
