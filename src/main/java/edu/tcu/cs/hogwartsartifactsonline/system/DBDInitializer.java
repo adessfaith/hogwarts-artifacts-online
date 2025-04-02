@@ -3,6 +3,7 @@ import edu.tcu.cs.hogwartsartifactsonline.artifact.Artifact;
 import edu.tcu.cs.hogwartsartifactsonline.artifact.ArtifactRepository;
 import edu.tcu.cs.hogwartsartifactsonline.hogwartsuser.HogwartsUser;
 import edu.tcu.cs.hogwartsartifactsonline.hogwartsuser.UserRepository;
+import edu.tcu.cs.hogwartsartifactsonline.hogwartsuser.UserService;
 import edu.tcu.cs.hogwartsartifactsonline.wizard.Wizard;
 import edu.tcu.cs.hogwartsartifactsonline.wizard.WizardRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -15,10 +16,13 @@ public class DBDInitializer implements CommandLineRunner {
 
     private final UserRepository userRepository;
 
-    public DBDInitializer(ArtifactRepository artifactRepository, WizardRepository wizardRepository, UserRepository userRepository) {
+    private final UserService userService;
+
+    public DBDInitializer(ArtifactRepository artifactRepository, WizardRepository wizardRepository, UserRepository userRepository, UserService userService) {
         this.artifactRepository = artifactRepository;
         this.wizardRepository = wizardRepository;
         this.userRepository = userRepository;
+        this.userService = userService;
     }
     @Override
     public void run(String... args) throws Exception{

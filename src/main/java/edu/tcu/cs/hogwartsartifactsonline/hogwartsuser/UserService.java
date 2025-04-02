@@ -2,6 +2,10 @@ package edu.tcu.cs.hogwartsartifactsonline.hogwartsuser;
 
 import edu.tcu.cs.hogwartsartifactsonline.system.exception.ObjectNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,9 +13,11 @@ import java.util.List;
 
 @Service
 @Transactional
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+
+    private PasswordEncoder passwordEncoder;
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -25,7 +31,9 @@ public class UserService {
     }
 
     public HogwartsUser save(HogwartsUser newHogwartsUser){
-        return this.userRepository.save(newHogwartsUser);
+        //we need to encode plain text password before saving to the database
+        newHogwartsUser.setPassword(this.passwordEncoder.encode(newHogwartsUser.getPassword()));
+    return this.userRepository.save(newHogwartsUser);
 
     }
 
@@ -46,4 +54,10 @@ public class UserService {
         this.userRepository.deleteById(userId);
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        this.userRepository.findByUsername(username).map(hogwartsUser -> new MyUserPrincipal(hogwartsUser)) // if found wrap instance in myuserprinciple instance
+                .orElseThrow((()-> new UsernameNotFoundException("username + username + is not found")));
+        return null;
+    }
 }
