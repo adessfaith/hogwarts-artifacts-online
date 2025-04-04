@@ -17,9 +17,12 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
+    private final PasswordEncoder encoder;
+
     private PasswordEncoder passwordEncoder;
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository , PasswordEncoder encoder) {
         this.userRepository = userRepository;
+        this.encoder = encoder;
     }
 
     public List<HogwartsUser> findAll(){

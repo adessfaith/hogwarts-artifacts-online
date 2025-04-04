@@ -52,4 +52,8 @@ public class MyUserPrincipal implements UserDetails {
     public boolean isEnabled() {
         return this.hogwartsUser.isEnabled();
     }
+
+    public HogwartsUser getHogwartsUser(){
+        return hogwartsUser;
+    }
 }
