@@ -26,13 +26,13 @@ class UserServiceTest {
 
     @Mock
     UserRepository userRepository;
-
+    @Mock
+    PasswordEncoder passwordEncoder;
     @InjectMocks
     UserService userService;
 
     List<HogwartsUser> hogwartsUsers;
-    @Mock
-    PasswordEncoder passwordEncoder;
+
 
 
     @BeforeEach

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import java.io.IOException;
-
+ ////handles unsuccessful jwt authentication
 @Component
 public class CustomBearerTokenAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
