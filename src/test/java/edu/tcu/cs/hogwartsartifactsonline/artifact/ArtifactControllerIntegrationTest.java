@@ -1,9 +1,7 @@
 package edu.tcu.cs.hogwartsartifactsonline.artifact;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.tcu.cs.hogwartsartifactsonline.hogwartsuser.HogwartsUser;
 import edu.tcu.cs.hogwartsartifactsonline.system.StatusCode;
-import jdk.internal.ic.impl.Punycode;
 import org.hamcrest.Matchers;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,13 +14,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
-
-import java.util.List;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -45,17 +40,17 @@ class ArtifactControllerIntegrationTest {
 
     @Value("${api.endpoint.base-url}")
     String baseUrl;
-    private PasswordEncoder passwordEncoder;
 
 
     @BeforeEach
-    void setUp() {
-        // Add test user if not already in the DB
-        HogwartsUser user = new HogwartsUser();
-        user.setUsername("john");
-        user.setPassword(passwordEncoder.encode("123456"));
-        user.setAuthorities(List.of("ROLE_admin"));  // Ensure the user has the admin role
-        userRepository.save(user);
+    void setUp() throws Exception {
+//        ResultActions resultActions = this.mockMvc.perform(post(this.baseUrl + "/auth/login").header(HttpHeaders.AUTHORIZATION,
+//                "Basic " + Base64Utils.encodeToString("john:123456".getBytes())));
+        ResultActions resultActions = this.mockMvc.perform(post(this.baseUrl + "/users/login").with(httpBasic("john", "123456"))); // httpBasic() is from spring-security-test.
+        MvcResult mvcResult = resultActions.andDo(print()).andReturn();
+        String contentAsString = mvcResult.getResponse().getContentAsString();
+        JSONObject json = new JSONObject(contentAsString);
+        this.token = "Bearer " + json.getJSONObject("data").getString("token"); // Don't forget to add "Bearer " as prefix.
     }
 
     @Test
