@@ -42,6 +42,8 @@ public class ExceptionHandlerAdvice {
         return new Result(false, StatusCode.INVALID_ARGUMENT, "Provided arguments are invalid, see data for details.", map);
     }
 
+
+
     @ExceptionHandler({UsernameNotFoundException.class, BadCredentialsException.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED) //UNAUTHENTICATED
     Result handleAuthenticationException(Exception ex) {
@@ -59,7 +61,7 @@ public class ExceptionHandlerAdvice {
         return new Result(false, StatusCode.UNAUTHORIZED,  "The access token provided is expired, revoked, malformed, or invalid for other reasons.", ex.getMessage());
     }
     @ExceptionHandler(AccessDeniedException.class)
-    @ResponseStatus(HttpStatus.UNAUTHORIZED) //UNAUTHENTICATED
+    @ResponseStatus(HttpStatus.FORBIDDEN) //UNAUTHENTICATED
     Result handleAccessDeniedException(AccessDeniedException ex) {
         return new Result(false, StatusCode.FORBIDDEN, "No permission." , ex.getMessage());
     }
@@ -69,17 +71,11 @@ public class ExceptionHandlerAdvice {
     @return
      ***/
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.UNAUTHORIZED) //UNAUTHENTICATED
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) //UNAUTHENTICATED
     Result handleOtherException(Exception ex) {
         return new Result(false, StatusCode.INTERNAL_SERVER_ERROR, "A server internal error occurs.", ex.getMessage());
     }
 
-//    @ExceptionHandler(AuthenticationException.class)
-//    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-//    Result handleAuthenticationException(AuthenticationException ex)
-//    {
-//        return new Result(false, StatusCode.UNAUTHORIZED, ex.getMessage());
-//    }
 
 
     //spring security exceptions are thrown before controllers start to work!!!!!

@@ -9,4 +9,6 @@ public interface UserRepository extends JpaRepository<HogwartsUser, Integer> {
    Optional<HogwartsUser> findByUsername(String username);
 
     Optional<HogwartsUser> findByUsernameAndPassword(String username, String password);
+
+
 }

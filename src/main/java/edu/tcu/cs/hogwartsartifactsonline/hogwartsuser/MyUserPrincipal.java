@@ -7,20 +7,21 @@ import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 public class MyUserPrincipal implements UserDetails {
 
     private HogwartsUser hogwartsUser;
 
+
     public MyUserPrincipal(HogwartsUser hogwartsUser) {
         this.hogwartsUser = hogwartsUser;
     }
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-      return Arrays.stream(StringUtils.tokenizeToStringArray(this.hogwartsUser.getRoles(), " ")).map(role->new SimpleGrantedAuthority("ROLE_"+role)).toList();
+        return Arrays.stream(StringUtils.tokenizeToStringArray(this.hogwartsUser.getRoles(), " "))
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+                .toList();
     }
 
     @Override
@@ -53,7 +54,8 @@ public class MyUserPrincipal implements UserDetails {
         return this.hogwartsUser.isEnabled();
     }
 
-    public HogwartsUser getHogwartsUser(){
+    public HogwartsUser getHogwartsUser() {
         return hogwartsUser;
     }
+
 }
