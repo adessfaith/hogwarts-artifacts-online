@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 class AuthController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
-    final JwtProvider jwtProvider;
+
     private final AuthService authService;
 
-    AuthController(JwtProvider jwtProvider, AuthService authservice) {
-        this.jwtProvider = jwtProvider;
+    AuthController( AuthService authservice) {
+
         this.authService = authservice;
     }
     @PostMapping("/login")
