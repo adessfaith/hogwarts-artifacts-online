@@ -1,27 +1,32 @@
 package edu.tcu.cs.hogwartsartifactsonline.system;
+
 import edu.tcu.cs.hogwartsartifactsonline.artifact.Artifact;
 import edu.tcu.cs.hogwartsartifactsonline.artifact.ArtifactRepository;
 import edu.tcu.cs.hogwartsartifactsonline.hogwartsuser.HogwartsUser;
-import edu.tcu.cs.hogwartsartifactsonline.hogwartsuser.UserRepository;
+import edu.tcu.cs.hogwartsartifactsonline.hogwartsuser.UserService;
 import edu.tcu.cs.hogwartsartifactsonline.wizard.Wizard;
 import edu.tcu.cs.hogwartsartifactsonline.wizard.WizardRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
 @Component
-public class DBDInitializer implements CommandLineRunner {
+public class DBDataInitializer implements CommandLineRunner {
+
     private final ArtifactRepository artifactRepository;
 
     private final WizardRepository wizardRepository;
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public DBDInitializer(ArtifactRepository artifactRepository, WizardRepository wizardRepository, UserRepository userRepository) {
+
+    public DBDataInitializer(ArtifactRepository artifactRepository, WizardRepository wizardRepository, UserService userService) {
         this.artifactRepository = artifactRepository;
         this.wizardRepository = wizardRepository;
-        this.userRepository = userRepository;
+        this.userService = userService;
     }
+
     @Override
-    public void run(String... args) throws Exception{
+    public void run(String... args) throws Exception {
         Artifact a1 = new Artifact();
         a1.setId("1250808601744904191");
         a1.setName("Deluminator");
@@ -81,8 +86,7 @@ public class DBDInitializer implements CommandLineRunner {
 
         artifactRepository.save(a6);
 
-
-        //create new users
+        // Create some users.
         HogwartsUser u1 = new HogwartsUser();
         u1.setId(1);
         u1.setUsername("john");
@@ -104,13 +108,9 @@ public class DBDInitializer implements CommandLineRunner {
         u3.setEnabled(false);
         u3.setRoles("user");
 
-        this.userRepository.save(u1);
-        this.userRepository.save(u2);
-        this.userRepository.save(u3);
-
-
-
-
-
+        this.userService.save(u1);
+        this.userService.save(u2);
+        this.userService.save(u3);
     }
+
 }
