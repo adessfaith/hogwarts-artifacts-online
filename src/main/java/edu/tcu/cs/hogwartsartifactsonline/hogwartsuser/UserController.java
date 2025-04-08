@@ -52,15 +52,12 @@ public Result findUserById(@PathVariable Integer userId){
         return new Result(true, StatusCode.SUCCESS, "Find One Success", userDto);
 }
 
-
-@PostMapping
-    public Result addUser(@Valid @RequestBody UserDto userDto){
-    HogwartsUser savedUser = this.userService.save(new HogwartsUser());
-
-    UserDto savedUserDto = this.userToUserDtoConverter.convert(savedUser);
-    return new Result(true, StatusCode.SUCCESS, "Add Success", savedUserDto);
-
-}
+    @PostMapping
+    public Result addUser(@Valid @RequestBody HogwartsUser newHogwartsUser) {
+        HogwartsUser savedUser = this.userService.save(newHogwartsUser);
+        UserDto savedUserDto = this.userToUserDtoConverter.convert(savedUser);
+        return new Result(true, StatusCode.SUCCESS, "Add Success", savedUserDto);
+    }
 
 @PutMapping("/{userId}")
     public Result updateUser(@PathVariable Integer userId, @Valid @RequestBody UserDto userDto){

@@ -126,7 +126,7 @@ public class WizardControllerTest {
     }
 
     @Test
-    void findWizardByIdSuccess() throws Exception {
+    void testFindWizardByIdSuccess() throws Exception {
        //given
         given(this.wizardService.findById(1)).willReturn(this.wizards.get(0));
 
@@ -142,7 +142,7 @@ public class WizardControllerTest {
 
     }
     @Test
-    void findWizardByIdNotFound() throws Exception {
+    void testFindWizardByIdNotFound() throws Exception {
         given(this.wizardService.findById(1)).willThrow(new ObjectNotFoundException("wizard", 1));
         this.mockMvc.perform(get(this.baseUrl+"/wizards/1").accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.flag").value(false))
@@ -168,7 +168,7 @@ public class WizardControllerTest {
 
         }
             @Test
-            void addWizardSuccess () throws Exception {
+            void TestAddWizardSuccess () throws Exception {
                 WizardDto wizardDto = new WizardDto( 4, "Hermione Granger", 0);
                 String json = this.objectMapper.writeValueAsString(wizardDto);
                 Wizard savedWizard = new Wizard();
@@ -188,7 +188,7 @@ public class WizardControllerTest {
 
             }
             @Test
-            void updateWizardSuccess () throws Exception {
+            void testUpdateWizardSuccess () throws Exception {
                 WizardDto wizardDto = new WizardDto( 5, "Hermione Granger", 0);
                 String json = this.objectMapper.writeValueAsString(wizardDto);
 

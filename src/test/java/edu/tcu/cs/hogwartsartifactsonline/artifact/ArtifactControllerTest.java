@@ -37,8 +37,7 @@ class ArtifactControllerTest {
 
     @Autowired
     MockMvc mockMvc;
-    @Autowired
-    WebApplicationContext webApplicationContext;
+
 
     @MockBean
     ArtifactService artifactService;
