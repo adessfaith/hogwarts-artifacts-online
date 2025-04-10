@@ -5,7 +5,7 @@ import edu.tcu.cs.hogwartsartifactsonline.system.StatusCode;
 import edu.tcu.cs.hogwartsartifactsonline.wizard.converter.WizardDtoToWizardConverter;
 import edu.tcu.cs.hogwartsartifactsonline.wizard.converter.WizardToWizardDtoConverter;
 import edu.tcu.cs.hogwartsartifactsonline.wizard.dto.WizardDto;
-import org.junit.Test;
+
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
