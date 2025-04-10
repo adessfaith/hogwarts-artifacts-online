@@ -12,3 +12,6 @@ api:
     base-url: /api/v1
     base-url/users: /api/v1/users
 
+server:
+  port:80
+
