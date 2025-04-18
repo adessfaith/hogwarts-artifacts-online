@@ -8,14 +8,7 @@ import org.springframework.util.StringUtils;
 import java.util.Arrays;
 import java.util.Collection;
 
-public class MyUserPrincipal implements UserDetails {
-
-    private final HogwartsUser hogwartsUser;
-
-
-    public MyUserPrincipal(HogwartsUser hogwartsUser) {
-        this.hogwartsUser = hogwartsUser;
-    }
+public record MyUserPrincipal(HogwartsUser hogwartsUser) implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -52,10 +45,6 @@ public class MyUserPrincipal implements UserDetails {
     @Override
     public boolean isEnabled() {
         return this.hogwartsUser.isEnabled();
-    }
-
-    public HogwartsUser getHogwartsUser() {
-        return hogwartsUser;
     }
 
 }

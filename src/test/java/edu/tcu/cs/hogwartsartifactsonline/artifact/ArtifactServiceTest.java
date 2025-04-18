@@ -85,7 +85,7 @@ class ArtifactServiceTest {
         ));
 
 
-        //When cover methods to be test
+        //When cover methods to be tested
         Artifact returnedArtifact = artifactService.findById("1250808601744904192");
 
         //Then What is expected?
@@ -103,7 +103,7 @@ class ArtifactServiceTest {
     @Test
     void testFindByIdNotFound() {
         //Given
-        // Given
+
         given(artifactRepository.findById(Mockito.any(String.class))).willReturn(Optional.empty());
 
         // When
@@ -173,7 +173,7 @@ class ArtifactServiceTest {
 
         //update.setId("1250808601744904192");
         update.setName("Invisibility Cloak");
-        update.setDescription("A new descriptiondescription");
+        update.setDescription("A new description");
         update.setImageUrl("imageUrl");
 
         given(artifactRepository.findById("1250808601744904192")).willReturn(Optional.of(oldArtifact));

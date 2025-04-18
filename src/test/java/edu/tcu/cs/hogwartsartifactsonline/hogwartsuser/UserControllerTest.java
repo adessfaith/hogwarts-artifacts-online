@@ -76,23 +76,6 @@ public class UserControllerTest {
         this.users.add(u3);
     }
 
-//    @Test
-//    void testFindAllUsersSuccess() throws Exception {
-//        //given
-//        given(this.userService.findAll()).willReturn(this.users);
-//
-//        //when  and then
-//
-//       this.mockMvc.perform(get(this.baseUrl + "/users").accept(MediaType.APPLICATION_JSON))
-//               .andExpect(jsonPath("$.flag").value(true))
-//               .andExpect(jsonPath("$.code").value(StatusCode.SUCCESS))
-//               .andExpect(jsonPath("$.message").value("Find All Success"))
-//               .andExpect(jsonPath("$.data", Matchers.hasSize(this.users.size())))
-//               .andExpect(jsonPath("$.data[0].id").value(1))
-//               .andExpect(jsonPath("$.data[0].username").value("john"))
-//               .andExpect(jsonPath("$.data[1].id").value(2))
-//               .andExpect(jsonPath("$.data[1].username").value("eric"));
-//    }
 @Test
 void testFindAllUsersSuccess() throws Exception {
     // Given. Arrange inputs and targets. Define the behavior of Mock object userService.

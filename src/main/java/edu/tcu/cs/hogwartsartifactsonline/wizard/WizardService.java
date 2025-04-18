@@ -35,9 +35,9 @@ public class WizardService {
     public Wizard update(Integer wizardId, Wizard update){
         return this.wizardRepository.findById(wizardId).map(oldWizard->{
             oldWizard.setName(update.getName());
-            oldWizard.setArtifacts(update.getArtifacts());
-            Wizard updatedWizard = this.wizardRepository.save(oldWizard);
-            return oldWizard;
+           // oldWizard.setArtifacts(update.getArtifacts());
+            return this.wizardRepository.save(oldWizard);
+
         }).orElseThrow(()->new ObjectNotFoundException("wizard", wizardId));
 
 

@@ -26,7 +26,7 @@ public class AuthService {
         //create user info
 
         MyUserPrincipal principal = (MyUserPrincipal) authentication.getPrincipal();
-        HogwartsUser hogwartsUser = principal.getHogwartsUser();
+        HogwartsUser hogwartsUser = principal.hogwartsUser();
         UserDto userDto = userToUserDtoConverter.convert(hogwartsUser);
 
 

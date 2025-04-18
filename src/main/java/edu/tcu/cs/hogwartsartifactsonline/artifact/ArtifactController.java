@@ -53,7 +53,7 @@ public class ArtifactController {
     @PostMapping
    // @PostMapping
     public Result addArtifact(@Valid @RequestBody ArtifactDto artifactDto) {
-        //convert artifactdto to artifact
+        //convert artifactDto to artifact
 
         Artifact newArtifact = this.artifactDtoToArtifactConverter.convert(artifactDto);
         Artifact savedArtifact = this.artifactService.save(newArtifact);

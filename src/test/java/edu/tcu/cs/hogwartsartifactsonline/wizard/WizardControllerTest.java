@@ -28,7 +28,6 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 @AutoConfigureMockMvc(addFilters = false)
 @SpringBootTest
@@ -49,13 +48,6 @@ public class WizardControllerTest {
    WizardService wizardService;
 
     List<Wizard> wizards;
-
-//    @Value("${api.endpoint.base-url}")
-//    String baseUrl;
-
-
-
-
 
 
     @BeforeEach
@@ -305,7 +297,5 @@ public class WizardControllerTest {
 
 
     }
-//    @Test
-//    public void findAllWizardsSuccess(){}
 
 

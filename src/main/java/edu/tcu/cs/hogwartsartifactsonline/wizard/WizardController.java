@@ -9,7 +9,6 @@ import edu.tcu.cs.hogwartsartifactsonline.wizard.dto.WizardDto;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,7 +30,6 @@ public class WizardController {
     public Result findAllWizards(){
         List<Wizard> foundWizards  = this.wizardService.findAll();
 
-        Arrays foundArtifacts;
         List<WizardDto> wizardDtos = foundWizards.stream().map(foundWizard-> this.wizardToWizardDtoConverter.convert(foundWizard)).collect(Collectors.toList());
 
         return new Result(true, StatusCode.SUCCESS, "Find All Success", wizardDtos);
